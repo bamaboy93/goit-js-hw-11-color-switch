@@ -2,7 +2,7 @@ const refs = {
   body: document.querySelector("body"),
   start: document.querySelector('button[data-action="start"]'),
   stop: document.querySelector('button[data-action="stop"]'),
-  
+
 };
 
 const colors = [
@@ -19,33 +19,31 @@ const randomIntegerFromInterval = (min, max) => {
 };
 
 const timer = {
-  switchColors : null,
-  isActive: false,
+  switchColors: null,
+  
   start() {
-    if (this.isActive) {
-      return;
-    }
+    
 
-    this.isActive = true;
+    refs.start.setAttribute("disabled", true);
     this.switchColors = setInterval(() => {
       const min = 0;
       const max = colors.length - 1;
       const color = randomIntegerFromInterval(min, max);
-        refs.body.style.backgroundColor = colors[color];
-        
+      refs.body.style.backgroundColor = colors[color];
+
     }, 1000);
   },
   stop() {
     clearInterval(this.switchColors);
-    this.isActive = false;
-    },
-    
+    refs.start.removeAttribute("disabled", true);
+  },
+
 };
 
 refs.start.addEventListener("click", () => {
-  timer.start() 
+  timer.start()
 });
-refs.stop.addEventListener("click",() => {
-  timer.stop() 
+refs.stop.addEventListener("click", () => {
+  timer.stop()
 });
 
